@@ -7,8 +7,14 @@ import socket
 import subprocess
 import pkgutil
 import logging
-import pip.req
 from . import dingdangpath
+
+try: # for pip >= 10
+    from pip._internal.req import parse_requirements
+except ImportError: # for pip <= 9.0.3
+    from pip.req import parse_requirements
+
+
 if sys.version_info < (3, 3):
     from distutils.spawn import find_executable
 else:
